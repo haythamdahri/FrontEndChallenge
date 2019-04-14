@@ -15,7 +15,6 @@ export class GithubService {
 
   getRepositories(nbPages: number): Repository[] {
     const desiredDate = new Date(Date.now());
-    console.log(desiredDate);
     desiredDate.setDate(desiredDate.getDay() - 30);
     const day: string = ('0' + desiredDate.getDay().toString()).slice(-2);
     const month: string = ('0' + desiredDate.getMonth().toString()).slice(-2);
@@ -23,10 +22,9 @@ export class GithubService {
     console.log('URL: ' + GITHUB_URL);
     this.http.get(GITHUB_URL).subscribe(
       (data: Data) => {
-        let repositories: Repository[];
         data.items.forEach(
           (item: Data) => {
-            let tempRepository: Repository = new Repository(
+            const tempRepository: Repository = new Repository(
               item.id,
               item.owner.login,
               item.description,
@@ -40,11 +38,9 @@ export class GithubService {
         );
       },
       (error: Error) => {
-        console.log('Error: ' + error.message);
         this.repositories = null;
       },
       () => {
-        console.log('Data retrieved completed process!');
       }
     );
     return this.repositories;

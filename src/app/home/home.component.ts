@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GithubService} from '../shared/github.service';
-import {ActivatedRoute, Params} from '@angular/router';
 import {Repository} from '../shared/repository.model';
 
 @Component({
@@ -14,37 +13,40 @@ export class HomeComponent implements OnInit, OnDestroy {
   currentPage: number = 1;
   isError: boolean = false;
 
-  constructor(private githubService: GithubService,
-              private route: ActivatedRoute) {
+  constructor(private githubService: GithubService) {
+
   }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(
-      (params: Params) => {
-        if (params['page'] != null) {
-          this.currentPage = +params['page'];
-        } else {
-          this.currentPage = 1;
-        }
-        console.log('page: ' + this.currentPage);
-        console.log('Page type: ' + typeof this.currentPage);
-        if (this.repositories != null || this.repositories.length > 0) {
-          this.repositories = [];
-        }
-        const tempRepositories: Repository[] = this.githubService.getRepositories(this.currentPage);
-        if (tempRepositories != null) {
-          this.isError = false;
-          this.repositories = tempRepositories;
-        } else {
-          this.repositories = [];
-          this.isError = true;
-        }
-      }
-    );
+    this.repositories = this.githubService.getRepositories(this.currentPage);
+    if (this.repositories == null) {
+      this.isError = true;
+    }
   }
 
   ngOnDestroy(): void {
     this.repositories = [];
   }
 
+  onScroll() {
+    this.currentPage += 1;
+    this.repositories.concat(this.githubService.getRepositories(this.currentPage));
+    if (this.repositories == null) {
+      this.isError = true;
+    } else {
+      this.isError = false;
+    }
+  }
+
+  reload() {
+    this.currentPage = 1;
+    this.repositories = [];
+    console.log('Current Page: ' + this.currentPage);
+    this.repositories = this.githubService.getRepositories(this.currentPage);
+    if (this.repositories == null) {
+      this.isError = true;
+    } else {
+      this.isError = false;
+    }
+  }
 }

@@ -11,6 +11,7 @@ import { AboutComponent } from './about/about.component';
 import {ThousandSuffixesPipe} from './shared/thousand-suffixes.pipe';
 import { RepositoryComponent } from './home/repository/repository.component';
 import {TimeAgoPipe} from 'time-ago-pipe';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {TimeAgoPipe} from 'time-ago-pipe';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    InfiniteScrollModule
   ],
   providers: [GithubService],
   bootstrap: [AppComponent]
