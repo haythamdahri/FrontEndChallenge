@@ -1,0 +1,47 @@
+<div class="container-fluid">
+  <div class="mt-3 row">
+    <div class="col-12 fa-3x text-center" *ngIf="repositories.length === 0">
+      <i class="fas fa-sync fa-spin"></i>
+    </div>
+    <div class="col-12 fa-3x text-center" *ngIf="repositories.length === 0">
+      <p class="font-weight-light">Fetching data from GITHUB api, please wait...</p>
+    </div>
+  </div>
+  <div class="row mb-2" *ngFor="let repository of repositories">
+    <div class="col-9 col-md-9 col-lg-9 col-xl-9 col-sm-12">
+
+      <div class="card">
+        <div class="row no-gutters">
+          <div class="col-md-2">
+            <img src="{{ repository.avatar }}" class="card-img" alt="...">
+          </div>
+          <div class="col-md-10">
+            <div class="card-body">
+              <h5 class="card-title">{{ repository.name }}</h5>
+              <p class="card-text">{{ repository.description }}</p>
+              <p class="card-text">
+                <span class="row">
+                  <span class="col-md-2 col-lg-2 col-xl-2 col-sm-12 col-12 border border-dark bg-light text-center" >
+                    Stars: {{ repository.stars }}
+                  </span> &nbsp;
+                  <span class="col-md-2 col-lg-2 col-xl-2 col-sm-12 col-12 border border-dark bg-light text-center">
+                    Issues: {{ repository.issues }}
+                  </span>
+                  <span class="col-md-7 col-lg-7 col-xl-7 col-sm-12 col-12">
+                    Last updated 3 mins ago
+                  </span>
+                </span>
+
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row mb-5">
+
+  </div>
+</div>
