@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AboutComponent implements OnInit {
 
+  imagePath: string;
+
   constructor() { }
 
   ngOnInit() {
+    this.imagePath = './card.jpeg';
   }
 
 }
