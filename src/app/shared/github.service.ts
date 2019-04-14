@@ -19,7 +19,7 @@ export class GithubService {
     desiredDate.setDate(desiredDate.getDay() - 30);
     const day: string = ('0' + desiredDate.getDay().toString()).slice(-2);
     const month: string = ('0' + desiredDate.getMonth().toString()).slice(-2);
-    const GITHUB_URL = 'https://api.github.com/search/repositories?q=created:>' + desiredDate.getFullYear() + '-' + month + '-' + day + '&sort=stars&order=desc&page'+nbPages;
+    const GITHUB_URL = 'https://api.github.com/search/repositories?q=created:>' + desiredDate.getFullYear() + '-' + month + '-' + day + '&sort=stars&order=desc&page=' + nbPages;
     console.log('URL: ' + GITHUB_URL);
     this.http.get(GITHUB_URL).subscribe(
       (data: Data) => {
@@ -33,14 +33,15 @@ export class GithubService {
               item.stargazers_count,
               item.open_issues_count,
               item.name,
-              item.owner.avatar_url);
+              item.owner.avatar_url,
+              item.updated_at);
             this.repositories.push(tempRepository);
           }
         );
       },
       (error: Error) => {
         console.log('Error: ' + error.message);
-        this.repositories = new Array();
+        this.repositories = null;
       },
       () => {
         console.log('Data retrieved completed process!');

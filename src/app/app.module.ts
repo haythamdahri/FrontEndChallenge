@@ -8,13 +8,19 @@ import {HttpClientModule} from '@angular/common/http';
 import {GithubService} from './shared/github.service';
 import { HeaderComponent } from './header/header.component';
 import { AboutComponent } from './about/about.component';
+import {ThousandSuffixesPipe} from './shared/thousand-suffixes.pipe';
+import { RepositoryComponent } from './home/repository/repository.component';
+import {TimeAgoPipe} from 'time-ago-pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     HeaderComponent,
-    AboutComponent
+    AboutComponent,
+    ThousandSuffixesPipe,
+    RepositoryComponent,
+    TimeAgoPipe
   ],
   imports: [
     BrowserModule,

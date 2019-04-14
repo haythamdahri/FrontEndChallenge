@@ -6,5 +6,6 @@ export class Repository {
               public stars: number,
               public issues: number,
               public username: string,
-              public avatar: string) {}
+              public avatar: string,
+              public lastUpdate: string) {}
 }
